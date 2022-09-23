@@ -10,6 +10,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
+  railflow: railflow/railflow-orb@0.0.5
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -37,6 +38,27 @@ jobs:
           name: Run tests
           # This assumes pytest is installed via the install-package step above
           command: pytest
+          pytest test_2.py -v --junitxml="result.xml"
+  
+  test_rail_run:
+    working_directory: ~/repo
+    executor: railflow/default
+    shell: /bin/bash --login -o pipefail
+    environment:
+      # secrets are stored in Circle CI project environment variables
+      # RAILFLOW_KEY
+      # RAILFLOW_USERNAME
+      # RAILFLOW_PASSWORD
+
+      RAILFLOW_URL: https://elchuko.railflow.io/
+      RAILFLOW_PROJECT_NAME: Demo
+      #RAILFLOW_PROJECT_PATH: Demo/TestNG
+      RAILFLOW_REPORT_FORMAT: JUnit
+      RAILFLOW_REPORT_PATH: ~/repo/target/surefire-reports/testng-results.xml
+      RAILFLOW_SEARCH_MODE: path
+      RAILFLOW_TEST_PLAN: TestPlanName
+      RAILFLOW_ASSIGN_FAILURE_TO: assign-email@example.com
+
 
 # Invoke jobs via workflows
 # See: https://circleci.com/docs/2.0/configuration-reference/#workflows
