@@ -58,7 +58,7 @@ jobs:
       RAILFLOW_PROJECT_NAME: Demo
       #RAILFLOW_PROJECT_PATH: Demo/TestNG
       RAILFLOW_REPORT_FORMAT: JUnit
-      RAILFLOW_REPORT_PATH: ~/repo/ test_results/result.xml
+      RAILFLOW_REPORT_PATH: ~/repo/
       RAILFLOW_SEARCH_MODE: path
       RAILFLOW_TEST_PLAN: TestPlanName
       RAILFLOW_ASSIGN_FAILURE_TO: assign-email@example.com
