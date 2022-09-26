@@ -56,7 +56,7 @@ jobs:
 
       RAILFLOW_URL: https://elchuko.railflow.io/
       RAILFLOW_PROJECT_NAME: Demo
-      #RAILFLOW_PROJECT_PATH: Demo/TestNG
+      RAILFLOW_PROJECT_PATH: CircleCI/run
       RAILFLOW_REPORT_FORMAT: JUnit
       RAILFLOW_REPORT_PATH: ~/repo/
       RAILFLOW_SEARCH_MODE: path
