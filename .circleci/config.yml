@@ -92,6 +92,6 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - test_rail_run
+      - test_rail_run:
           requires:
               - build-and-test
