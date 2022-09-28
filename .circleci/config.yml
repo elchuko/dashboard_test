@@ -93,3 +93,5 @@ workflows:
     jobs:
       - build-and-test
       - test_rail_run
+          - requires:
+              - build-and-test
