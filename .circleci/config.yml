@@ -10,7 +10,7 @@ orbs:
   # so you dont have to copy and paste it everywhere.
   # See the orb documentation here: https://circleci.com/developer/orbs/orb/circleci/python
   python: circleci/python@1.5.0
-  railflow: railflow/railflow-orb@0.0.5
+  #railflow: railflow/railflow-orb@0.0.5
 
 # Define a job to be invoked later in a workflow.
 # See: https://circleci.com/docs/2.0/configuration-reference/#jobs
@@ -42,47 +42,9 @@ jobs:
       - store_artifacts:
           path: ./test_results/result.xml
 
-          
-  
-  test_rail_run:
-    working_directory: ~/repo
-    executor: railflow/default
-    shell: /bin/bash --login -o pipefail
-    environment:
-      # secrets are stored in Circle CI project environment variables
-      # RAILFLOW_KEY
-      # RAILFLOW_USERNAME
-      # RAILFLOW_PASSWORD
-
-      RAILFLOW_URL: https://elchuko.railflow.io/
-      RAILFLOW_PROJECT_NAME: Demo
-      RAILFLOW_PROJECT_PATH: CircleCI/run
-      RAILFLOW_REPORT_FORMAT: JUnit
-      RAILFLOW_REPORT_PATH: ~/repo/
-      RAILFLOW_SEARCH_MODE: path
-      RAILFLOW_TEST_PLAN: TestPlanName
-      RAILFLOW_ASSIGN_FAILURE_TO: assign-email@example.com
-    
-    steps:
-      - checkout
-      - attach_workspace:
-          at: ./
-      - railflow/test:
-          RAILFLOW_KEY: $RAILFLOW_KEY
-          RAILFLOW_URL: $RAILFLOW_URL
-          RAILFLOW_USERNAME: $RAILFLOW_USERNAME
-          RAILFLOW_PASSWORD: $RAILFLOW_PASSWORD
-          RAILFLOW_PROJECT_NAME: $RAILFLOW_PROJECT_NAME
-          RAILFLOW_PROJECT_PATH: $RAILFLOW_PROJECT_PATH
-          RAILFLOW_REPORT_FORMAT: $RAILFLOW_REPORT_FORMAT
-          RAILFLOW_REPORT_PATH: $RAILFLOW_REPORT_PATH
-          RAILFLOW_SEARCH_MODE: $RAILFLOW_SEARCH_MODE
-          RAILFLOW_TEST_PLAN: $RAILFLOW_TEST_PLAN
-          RAILFLOW_ASSIGN_FAILURE_TO: $RAILFLOW_ASSIGN_FAILURE_TO
-
-      - store_artifacts:
-          path: $RAILFLOW_REPORT_PATH
-          destination: railflow-artifacts
+      - run: 
+          name: Upload test results to Testrail
+          command: trcli -y -h https://elchuko.testrail.io --project "Test Project" --username $TR_USER --password $TR_PASSWORD parse_junit --title "Try number 2" -f ./test_results/result.xml
 
 
 # Invoke jobs via workflows
@@ -92,6 +54,3 @@ workflows:
     # Inside the workflow, you define the jobs you want to run.
     jobs:
       - build-and-test
-      - test_rail_run:
-          requires:
-              - build-and-test
