@@ -17,7 +17,7 @@ def test_second():
 
 def test_third():
     sleep(7)
-    assert False
+    assert True
 
 def test_fourth():
     sleep(15)
@@ -25,11 +25,11 @@ def test_fourth():
 
 def test_five():
     sleep(25)
-    assert False
+    assert True
 
 def test_sixth():
     sleep(15)
-    assert False
+    assert True
 
 
 #driver = webdriver.Chrome('C:\\chromedriver\\chromedriver')
