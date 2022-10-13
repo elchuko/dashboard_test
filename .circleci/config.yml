@@ -44,7 +44,7 @@ jobs:
 
       - run: 
           name: Upload test results to Testrail
-          command: trcli -y -h https://leadgenius.testrail.io --project "E2E Tests" --username tester@leadgenius.com --password XdMslGLgr/QN5GVM3Xjd parse_junit --title "Try number 2" -f ./test_results/result.xml
+          command: trcli -y -h https://leadgenius.testrail.io --project "E2E Tests" --username tester@leadgenius.com --password XdMslGLgr/QN5GVM3Xjd parse_junit --title "Try number 2" -f ./test_results/result1.xml
 
 
 # Invoke jobs via workflows
